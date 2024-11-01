@@ -1,0 +1,7 @@
+Utilities API
+============
+
+.. automodule:: data_processing.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
