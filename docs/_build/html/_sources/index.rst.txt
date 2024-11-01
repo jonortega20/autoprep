@@ -8,14 +8,12 @@ A comprehensive Python library for automated data preprocessing, exploratory ana
    :caption: Contents:
 
    introduction
-   installation
-   modules/preprocessing
-   modules/exploratory_analysis
-   modules/model_testing
-   modules/utils
+   usage
+   api_reference
+
 
 Introduction
------------
+============
 
 The Data Processing Library provides tools for automating common data analysis tasks, including:
 
@@ -26,78 +24,35 @@ The Data Processing Library provides tools for automating common data analysis t
 * Model testing capabilities
 
 Quick Start
-----------
+===========
 
 .. code-block:: python
 
-   from data_processing import DataProcessing
+   from autoprep.autoprep import AutoPrep
    
    # Initialize with your DataFrame
-   dp = DataProcessing(df)
+   dp = AutoPrep(df)
    
    # Run complete analysis
    results = dp.run_full_analysis(target='target_column')
 
 Core Components
--------------
+===============
 
-DataProcessing
-~~~~~~~~~~~~~
-
-.. automodule:: data_processing.data_processing
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Preprocessing
-~~~~~~~~~~~~
-
-.. automodule:: data_processing.preprocessing
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Exploratory Analysis
-~~~~~~~~~~~~~~~~~~
-
-.. automodule:: data_processing.exploratory_analysis
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Model Testing
-~~~~~~~~~~~~
-
-.. automodule:: data_processing.model_testing
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Utilities
+AutoPrep
 ~~~~~~~~
 
-.. automodule:: data_processing.utils
+.. automodule:: autoprep.autoprep
    :members:
    :undoc-members:
    :show-inheritance:
 
-API Reference
-------------
-
-.. toctree::
-   :maxdepth: 2
-
-   api/data_processing
-   api/preprocessing
-   api/exploratory_analysis
-   api/model_testing
-   api/utils
 
 Examples
---------
+========
 
 Missing Value Analysis
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -107,7 +62,7 @@ Missing Value Analysis
    print(missing_stats['columns_with_missing'])
 
 Outlier Detection
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -116,7 +71,7 @@ Outlier Detection
    print(outliers)
 
 Basic Statistics
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -125,7 +80,7 @@ Basic Statistics
    print(stats)
 
 Model Testing
-~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -136,7 +91,7 @@ Model Testing
    )
 
 Indices and Tables
-----------------
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`

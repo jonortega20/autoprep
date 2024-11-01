@@ -1,7 +1,0 @@
-Data Processing API
-==================
-
-.. automodule:: data_processing.data_processing
-   :members:
-   :undoc-members:
-   :show-inheritance:
