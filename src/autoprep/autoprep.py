@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
 import logging
+import seaborn as sns  # Para gráficos de densidad (kdeplot)
+import matplotlib.pyplot as plt  # Para mostrar gráficos
+from scipy import stats  # Para posibles pruebas de normalidad (opcional)
+
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
@@ -60,25 +64,29 @@ class AutoPrep:
         dict
             Dictionary containing missing value analysis results.
         """
+        # Calcular estadísticas de valores faltantes
         missing_stats = {
-            'total_missing': self.df.isnull().sum().sum(),
-            'columns_with_missing': self.df.isnull().sum().to_dict(),
-            'missing_ratio': self.df.isnull().mean().to_dict()
+        'total_missing': self.df.isnull().sum().to_dict(),
+        'columns_with_missing': {col: val for col, val in self.df.isnull().sum().items() if val > 0},
+        'missing_ratio': self.df.isnull().mean().to_dict()
         }
 
+        # Identificar columnas a eliminar
         cols_to_drop = [col for col, ratio in missing_stats['missing_ratio'].items() if ratio > threshold]
         if cols_to_drop:
             self.df.drop(columns=cols_to_drop, inplace=True)
             missing_stats['dropped_columns'] = cols_to_drop
 
+        # Imputación de valores faltantes según la estrategia
         for col in self.df.columns:
             if self.df[col].isnull().any():
-                if impute_strategy == "mean":
+                if impute_strategy == "mean" and self.df[col].dtype in ['float64', 'int64']:
                     self.df[col].fillna(self.df[col].mean(), inplace=True)
-                elif impute_strategy == "median":
+                elif impute_strategy == "median" and self.df[col].dtype in ['float64', 'int64']:
                     self.df[col].fillna(self.df[col].median(), inplace=True)
                 elif impute_strategy == "mode":
                     self.df[col].fillna(self.df[col].mode()[0], inplace=True)
+
         return missing_stats
 
     def handle_outliers(self, columns: list = None, method: str = "zscore", threshold: float = 3.0) -> dict:
