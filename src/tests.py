@@ -69,6 +69,7 @@ if __name__ == "__main__":
         'C': [1, 2, 3, 4, 5],
         'D': [np.nan, np.nan, np.nan, 4, 5],
         'E': ['AITOR', np.nan, 'MIKEL', np.nan, 'JON'],
+        'TARGET': [1, 0, 1, 0, 1]
     }
 
     #data = pd.read_csv('C:\Users\usuario\OneDrive - Mondragon Unibertsitatea\Escritorio\BDATA\BDATA4\Programacion\autoprep\src\medical_sutents_dataset.csv')
@@ -80,26 +81,30 @@ if __name__ == "__main__":
 
     # Llamar al método analyze_missing y mostrar el resultado
     missing_analysis = processor.analyze_missing(threshold=0.9, impute_strategy="mean")
-    print("Resultado del análisis de valores faltantes:", missing_analysis)
+    print("ANALISIS VALORES FALTANTES:", missing_analysis)
     print(' ')
 
     # Llamar al método handle_outliers y mostrar el resultado
     outliers_analysis = processor.handle_outliers()
-    print("Resultado del análisis de outliers:", outliers_analysis)
+    print("ANALISIS OUTLIERS:", outliers_analysis)
     print('')
 
     # Llamar al método get_basic_stats y mostrar el resultado
     basic_stats = processor.get_basic_stats()
-    print("Estadísticas básicas:", basic_stats)
+    print("ESTADISTICAS BASICAS:", basic_stats)
     print(' ')
 
     # Llamar al método normality_test y mostrar el resultado
     normality_tests = processor.normality_test()
-    print("Pruebas de normalidad:", normality_tests)
+    print("PRUEBAS DE NORMALIDAD:", normality_tests)
     print(' ')
 
     # Para run_models y run_full_analysis, debes definir el nombre de la columna target si deseas correr modelos de prueba
+    trained_model = processor.run_models(target="TARGET")
+    print("ENTRENAMIENTO DE MODELO:", trained_model)
+    print(' ')
+
     # Si deseas ejecutar run_full_analysis sin target, puedes hacerlo así:
     full_analysis = processor.run_full_analysis()
-    print("Análisis completo:", full_analysis)
-
+    print("ANALISIS COMPLETO:", full_analysis)
+    print(' ')

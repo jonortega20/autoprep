@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt  # Para mostrar gráficos
 from scipy import stats  # Para posibles pruebas de normalidad (opcional)
 
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.metrics import accuracy_score, mean_squared_error
 
 
 class AutoPrep:
@@ -186,22 +186,50 @@ class AutoPrep:
         Returns
         -------
         dict
-            Dictionary of model names and accuracy scores.
+            Dictionary of model names and their evaluation metrics.
         """
+        # Separar los datos en X e y
         X = self.df.drop(columns=[target])
         y = self.df[target]
+
+        # Convertir columnas categóricas a numéricas
+        X = pd.get_dummies(X, drop_first=True)
+
+        # Separar los datos en conjuntos de entrenamiento y prueba
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        models = {
-            "RandomForest": RandomForestClassifier(),
-            "LogisticRegression": LogisticRegression()
-        }
+        # Determinar si el target es numérico o categórico
+        if pd.api.types.is_numeric_dtype(y):
+            # Si el target es numérico, usar modelos de regresión
+            models = {
+                "RandomForestRegressor MSE": RandomForestRegressor(),
+                "LinearRegression MSE": LinearRegression()
+            }
+            metric_fn = mean_squared_error  # Usar MSE como métrica para regresión
+        else:
+            # Si el target es categórico, usar modelos de clasificación
+            models = {
+                "RandomForestClassifier ACC": RandomForestClassifier(),
+                "LogisticRegression ACC": LogisticRegression()
+            }
+            metric_fn = accuracy_score  # Usar precisión como métrica para clasificación
+
+        # Entrenar y evaluar cada modelo
         scores = {}
         for name, model in models.items():
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
-            scores[name] = accuracy_score(y_test, y_pred)
+            
+            # Calcular la métrica adecuada
+            if pd.api.types.is_numeric_dtype(y):
+                # Para regresión, calcular el error cuadrático medio
+                scores[name] = metric_fn(y_test, y_pred)
+            else:
+                # Para clasificación, calcular la precisión
+                scores[name] = metric_fn(y_test, y_pred)
+
         return scores
+
 
     # ----------- Full Analysis Method -----------
 
