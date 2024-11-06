@@ -84,6 +84,8 @@ class AutoPrep:
                     self.df[col].fillna(self.df[col].mean(), inplace=True)
                 elif impute_strategy == "median" and self.df[col].dtype in ['float64', 'int64']:
                     self.df[col].fillna(self.df[col].median(), inplace=True)
+                elif impute_strategy in ["mean", "median"] and self.df[col].dtype == 'object':
+                    self.df[col].fillna(self.df[col].mode()[0], inplace=True)
                 elif impute_strategy == "mode":
                     self.df[col].fillna(self.df[col].mode()[0], inplace=True)
 
