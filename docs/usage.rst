@@ -3,8 +3,6 @@ Usage Guide
 
 This guide provides usage examples for common tasks with the library, one per function available in the `AutoPrep` class.
 
-Examples
-========
 
 Missing Value Analysis
 ~~~~~~~~~~~~~~~~~~~~~~

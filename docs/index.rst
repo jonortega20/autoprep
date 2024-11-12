@@ -1,5 +1,5 @@
-Autoprep documentation: the automated data preprocessing library
-================================================================
+Autoprep documentation
+======================
 
 A comprehensive Python library for automated data preprocessing, exploratory analysis, and basic model testing.
 
@@ -17,6 +17,8 @@ A comprehensive Python library for automated data preprocessing, exploratory ana
 Quick Start
 ===========
 
+Here's a quick example to get you started with the library:
+
 .. code-block:: python
 
    from autoprep.autoprep import AutoPrep
@@ -27,7 +29,7 @@ Quick Start
    # Run complete analysis
    results = dp.run_full_analysis(target='target_column')
 
-More info in the Usage section.
+More examples of usage available in the Usage section.
 
 
 
