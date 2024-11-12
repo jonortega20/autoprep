@@ -39,8 +39,14 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -69,14 +75,18 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>  <span class="c1"># Para gráficos de densidad (kdeplot)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># Para mostrar gráficos</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>  <span class="c1"># Para posibles pruebas de normalidad (opcional)</span>
+
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span><span class="p">,</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">mean_squared_error</span>
 
 
 <div class="viewcode-block" id="AutoPrep">
-<a class="viewcode-back" href="../../index.html#autoprep.autoprep.AutoPrep">[docs]</a>
+<a class="viewcode-back" href="../../api_reference.html#autoprep.autoprep.AutoPrep">[docs]</a>
 <span class="k">class</span> <span class="nc">AutoPrep</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Unified class for data processing, including preprocessing, exploratory analysis,</span>
@@ -115,7 +125,7 @@
     <span class="c1"># ----------- Preprocessing Methods -----------</span>
 
 <div class="viewcode-block" id="AutoPrep.analyze_missing">
-<a class="viewcode-back" href="../../index.html#autoprep.autoprep.AutoPrep.analyze_missing">[docs]</a>
+<a class="viewcode-back" href="../../api_reference.html#autoprep.autoprep.AutoPrep.analyze_missing">[docs]</a>
     <span class="k">def</span> <span class="nf">analyze_missing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">impute_strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mean&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Analyze and handle missing values in the DataFrame.</span>
@@ -132,30 +142,36 @@
 <span class="sd">        dict</span>
 <span class="sd">            Dictionary containing missing value analysis results.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Calcular estadísticas de valores faltantes</span>
         <span class="n">missing_stats</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;total_missing&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
-            <span class="s1">&#39;columns_with_missing&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
-            <span class="s1">&#39;missing_ratio&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="s1">&#39;total_missing&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+        <span class="s1">&#39;columns_with_missing&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">},</span>
+        <span class="s1">&#39;missing_ratio&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
         <span class="p">}</span>
 
+        <span class="c1"># Identificar columnas a eliminar</span>
         <span class="n">cols_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">ratio</span> <span class="ow">in</span> <span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;missing_ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">ratio</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">cols_to_drop</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols_to_drop</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;dropped_columns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cols_to_drop</span>
 
+        <span class="c1"># Imputación de valores faltantes según la estrategia</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">impute_strategy</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">impute_strategy</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;float64&#39;</span><span class="p">,</span> <span class="s1">&#39;int64&#39;</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">impute_strategy</span> <span class="o">==</span> <span class="s2">&quot;median&quot;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">impute_strategy</span> <span class="o">==</span> <span class="s2">&quot;median&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;float64&#39;</span><span class="p">,</span> <span class="s1">&#39;int64&#39;</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">impute_strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;median&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">impute_strategy</span> <span class="o">==</span> <span class="s2">&quot;mode&quot;</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">missing_stats</span></div>
 
 
 <div class="viewcode-block" id="AutoPrep.handle_outliers">
-<a class="viewcode-back" href="../../index.html#autoprep.autoprep.AutoPrep.handle_outliers">[docs]</a>
+<a class="viewcode-back" href="../../api_reference.html#autoprep.autoprep.AutoPrep.handle_outliers">[docs]</a>
     <span class="k">def</span> <span class="nf">handle_outliers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zscore&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Detect and handle outliers in specified columns.</span>
@@ -192,7 +208,7 @@
     <span class="c1"># ----------- Exploratory Analysis Methods -----------</span>
 
 <div class="viewcode-block" id="AutoPrep.get_basic_stats">
-<a class="viewcode-back" href="../../index.html#autoprep.autoprep.AutoPrep.get_basic_stats">[docs]</a>
+<a class="viewcode-back" href="../../api_reference.html#autoprep.autoprep.AutoPrep.get_basic_stats">[docs]</a>
     <span class="k">def</span> <span class="nf">get_basic_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculate basic statistics for numerical columns.</span>
@@ -216,7 +232,7 @@
 
 
 <div class="viewcode-block" id="AutoPrep.normality_test">
-<a class="viewcode-back" href="../../index.html#autoprep.autoprep.AutoPrep.normality_test">[docs]</a>
+<a class="viewcode-back" href="../../api_reference.html#autoprep.autoprep.AutoPrep.normality_test">[docs]</a>
     <span class="k">def</span> <span class="nf">normality_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform basic normality tests on numerical columns.</span>
@@ -249,7 +265,7 @@
     <span class="c1"># ----------- Model Testing Methods -----------</span>
 
 <div class="viewcode-block" id="AutoPrep.run_models">
-<a class="viewcode-back" href="../../index.html#autoprep.autoprep.AutoPrep.run_models">[docs]</a>
+<a class="viewcode-back" href="../../api_reference.html#autoprep.autoprep.AutoPrep.run_models">[docs]</a>
     <span class="k">def</span> <span class="nf">run_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fit and evaluate multiple models on the data.</span>
@@ -262,28 +278,56 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
-<span class="sd">            Dictionary of model names and accuracy scores.</span>
+<span class="sd">            Dictionary of model names and their evaluation metrics.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Separar los datos en X e y</span>
         <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">target</span><span class="p">])</span>
         <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+
+        <span class="c1"># Convertir columnas categóricas a numéricas</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Separar los datos en conjuntos de entrenamiento y prueba</span>
         <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
-        <span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;RandomForest&quot;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(),</span>
-            <span class="s2">&quot;LogisticRegression&quot;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-        <span class="p">}</span>
+        <span class="c1"># Determinar si el target es numérico o categórico</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+            <span class="c1"># Si el target es numérico, usar modelos de regresión</span>
+            <span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;RandomForestRegressor MSE&quot;</span><span class="p">:</span> <span class="n">RandomForestRegressor</span><span class="p">(),</span>
+                <span class="s2">&quot;LinearRegression MSE&quot;</span><span class="p">:</span> <span class="n">LinearRegression</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="n">metric_fn</span> <span class="o">=</span> <span class="n">mean_squared_error</span>  <span class="c1"># Usar MSE como métrica para regresión</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Si el target es categórico, usar modelos de clasificación</span>
+            <span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;RandomForestClassifier ACC&quot;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(),</span>
+                <span class="s2">&quot;LogisticRegression ACC&quot;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+            <span class="p">}</span>
+            <span class="n">metric_fn</span> <span class="o">=</span> <span class="n">accuracy_score</span>  <span class="c1"># Usar precisión como métrica para clasificación</span>
+
+        <span class="c1"># Entrenar y evaluar cada modelo</span>
         <span class="n">scores</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
             <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-            <span class="n">scores</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+            
+            <span class="c1"># Calcular la métrica adecuada</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+                <span class="c1"># Para regresión, calcular el error cuadrático medio</span>
+                <span class="n">scores</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric_fn</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Para clasificación, calcular la precisión</span>
+                <span class="n">scores</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric_fn</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">scores</span></div>
+
 
 
     <span class="c1"># ----------- Full Analysis Method -----------</span>
 
 <div class="viewcode-block" id="AutoPrep.run_full_analysis">
-<a class="viewcode-back" href="../../index.html#autoprep.autoprep.AutoPrep.run_full_analysis">[docs]</a>
+<a class="viewcode-back" href="../../api_reference.html#autoprep.autoprep.AutoPrep.run_full_analysis">[docs]</a>
     <span class="k">def</span> <span class="nf">run_full_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Run a complete analysis pipeline.</span>

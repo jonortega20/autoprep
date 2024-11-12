@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Processing Library Documentation &mdash; autoprep: Data Processing Library 0.0.1 documentation</title>
+  <title>Autoprep documentation: the automated data preprocessing library &mdash; autoprep: Data Processing Library 0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -45,7 +45,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 </ul>
 
         </div>
@@ -62,7 +64,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Data Processing Library Documentation</li>
+      <li class="breadcrumb-item active">Autoprep documentation: the automated data preprocessing library</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -72,28 +74,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="data-processing-library-documentation">
-<h1>Data Processing Library Documentation<a class="headerlink" href="#data-processing-library-documentation" title="Link to this heading"></a></h1>
+  <section id="autoprep-documentation-the-automated-data-preprocessing-library">
+<h1>Autoprep documentation: the automated data preprocessing library<a class="headerlink" href="#autoprep-documentation-the-automated-data-preprocessing-library" title="Link to this heading"></a></h1>
 <p>A comprehensive Python library for automated data preprocessing, exploratory analysis, and basic model testing.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#examples">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#missing-value-analysis">Missing Value Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#outlier-detection">Outlier Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#basic-statistics">Basic Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#model-testing">Model Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-autoprep.autoprep">Core Components</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html#python-version">Python Version</a></li>
+</ul>
+</li>
 </ul>
 </div>
-</section>
-<section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
-<p>The Data Processing Library provides tools for automating common data analysis tasks, including:</p>
-<ul class="simple">
-<li><p>Data preprocessing and cleaning</p></li>
-<li><p>Missing value analysis</p></li>
-<li><p>Outlier detection</p></li>
-<li><p>Basic statistical analysis</p></li>
-<li><p>Model testing capabilities</p></li>
-</ul>
 </section>
 <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
@@ -106,172 +111,10 @@
 <span class="n">results</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">run_full_analysis</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="core-components">
-<h1>Core Components<a class="headerlink" href="#core-components" title="Link to this heading"></a></h1>
-<section id="module-autoprep.autoprep">
-<span id="autoprep"></span><h2>AutoPrep<a class="headerlink" href="#module-autoprep.autoprep" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="autoprep.autoprep.AutoPrep">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autoprep.autoprep.</span></span><span class="sig-name descname"><span class="pre">AutoPrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep/autoprep.html#AutoPrep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep.autoprep.AutoPrep" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Unified class for data processing, including preprocessing, exploratory analysis,
-and model testing, centralized into a single interface.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing the data to be processed.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="autoprep.autoprep.AutoPrep.analyze_missing">
-<span class="sig-name descname"><span class="pre">analyze_missing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep/autoprep.html#AutoPrep.analyze_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep.autoprep.AutoPrep.analyze_missing" title="Link to this definition"></a></dt>
-<dd><p>Analyze and handle missing values in the DataFrame.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum ratio of missing values allowed, by default 0.9.</p></li>
-<li><p><strong>impute_strategy</strong> (<em>str</em><em>, </em><em>optional</em>) – Strategy for imputing missing values, by default “mean”.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing missing value analysis results.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="autoprep.autoprep.AutoPrep.handle_outliers">
-<span class="sig-name descname"><span class="pre">handle_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zscore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep/autoprep.html#AutoPrep.handle_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep.autoprep.AutoPrep.handle_outliers" title="Link to this definition"></a></dt>
-<dd><p>Detect and handle outliers in specified columns.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>columns</strong> (<em>list</em><em>, </em><em>optional</em>) – List of columns to check for outliers.</p></li>
-<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – Method to detect outliers (“zscore” or “iqr”).</p></li>
-<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold for outlier detection.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing outlier analysis results.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="autoprep.autoprep.AutoPrep.get_basic_stats">
-<span class="sig-name descname"><span class="pre">get_basic_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep/autoprep.html#AutoPrep.get_basic_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep.autoprep.AutoPrep.get_basic_stats" title="Link to this definition"></a></dt>
-<dd><p>Calculate basic statistics for numerical columns.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary containing basic statistics for each numerical column.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="autoprep.autoprep.AutoPrep.normality_test">
-<span class="sig-name descname"><span class="pre">normality_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep/autoprep.html#AutoPrep.normality_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep.autoprep.AutoPrep.normality_test" title="Link to this definition"></a></dt>
-<dd><p>Perform basic normality tests on numerical columns.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>columns</strong> (<em>list</em><em>, </em><em>optional</em>) – List of columns to test.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing normality test results.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="autoprep.autoprep.AutoPrep.run_models">
-<span class="sig-name descname"><span class="pre">run_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep/autoprep.html#AutoPrep.run_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep.autoprep.AutoPrep.run_models" title="Link to this definition"></a></dt>
-<dd><p>Fit and evaluate multiple models on the data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>target</strong> (<em>str</em>) – Name of the target column.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary of model names and accuracy scores.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="autoprep.autoprep.AutoPrep.run_full_analysis">
-<span class="sig-name descname"><span class="pre">run_full_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep/autoprep.html#AutoPrep.run_full_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep.autoprep.AutoPrep.run_full_analysis" title="Link to this definition"></a></dt>
-<dd><p>Run a complete analysis pipeline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>target</strong> (<em>str</em><em>, </em><em>optional</em>) – Target column name for modeling.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing all analysis results.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-</section>
-<section id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
-<section id="missing-value-analysis">
-<h2>Missing Value Analysis<a class="headerlink" href="#missing-value-analysis" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analyze missing values</span>
-<span class="n">missing_stats</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">analyze_missing</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;total_missing&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;columns_with_missing&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</section>
-<section id="outlier-detection">
-<h2>Outlier Detection<a class="headerlink" href="#outlier-detection" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detect outliers using z-score method</span>
-<span class="n">outliers</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">handle_outliers</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;zscore&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="basic-statistics">
-<h2>Basic Statistics<a class="headerlink" href="#basic-statistics" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get basic statistics for numerical columns</span>
-<span class="n">stats</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">exploratory_analysis</span><span class="o">.</span><span class="n">get_basic_stats</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="model-testing">
-<h2>Model Testing<a class="headerlink" href="#model-testing" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data for modeling</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">model_testing</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
-    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span>
-    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</section>
+<p>More info in the Usage section.</p>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<h1>Indices and Tables:<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>

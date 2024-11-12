@@ -46,6 +46,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#missing-value-analysis">Missing Value Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outlier-detection">Outlier Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-statistics">Basic Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-testing">Model Testing</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 </ul>
 
@@ -75,7 +82,45 @@
              
   <section id="usage-guide">
 <h1>Usage Guide<a class="headerlink" href="#usage-guide" title="Link to this heading"></a></h1>
-<p>This guide provides usage examples for common tasks with the library.</p>
+<p>This guide provides usage examples for common tasks with the library, one per function available in the <cite>AutoPrep</cite> class.</p>
+</section>
+<section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+<section id="missing-value-analysis">
+<h2>Missing Value Analysis<a class="headerlink" href="#missing-value-analysis" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analyze missing values</span>
+<span class="n">missing_stats</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">analyze_missing</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;total_missing&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;columns_with_missing&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="outlier-detection">
+<h2>Outlier Detection<a class="headerlink" href="#outlier-detection" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detect outliers using z-score method</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">handle_outliers</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;zscore&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="basic-statistics">
+<h2>Basic Statistics<a class="headerlink" href="#basic-statistics" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get basic statistics for numerical columns</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">get_basic_stats</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="model-testing">
+<h2>Model Testing<a class="headerlink" href="#model-testing" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data for modeling</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span>
+    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
