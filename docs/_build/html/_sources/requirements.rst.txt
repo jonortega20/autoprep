@@ -3,7 +3,7 @@ Requirements
 
 A continuación, se listan las versiones de las bibliotecas necesarias para el proyecto y posibles incompatibilidades:
 
-Versiones de librerías Conda
+Versiones de librerías conda
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table:: 
@@ -104,6 +104,3 @@ Versiones de librerías pip
      - 3.0.1
    * - urllib3
      - 2.2.3
-
-
-
