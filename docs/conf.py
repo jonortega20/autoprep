@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'autoprep: Data Processing Library'
+project = 'autopreps: Data Processing Library'
 copyright = '2024, Jon Ortega, Haritz Bolumburu, Iker Barrero, Jon Tobalina'
 author = 'Jon Ortega, Haritz Bolumburu, Iker Barrero, Jon Tobalina'
 release = '0.0.1'

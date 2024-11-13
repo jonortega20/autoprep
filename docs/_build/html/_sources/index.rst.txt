@@ -1,5 +1,5 @@
-Autoprep documentation
-======================
+Autopreps documentation
+=======================
 
 A comprehensive Python library for automated data preprocessing, exploratory analysis, and basic model testing.
 

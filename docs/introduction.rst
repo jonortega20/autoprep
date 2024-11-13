@@ -3,7 +3,7 @@ Introduction
 
 This is an introduction to the library, providing an overview of its purpose and usage.
 
-Autoprep provides tools for automating common data analysis tasks, including:
+Autopreps provides tools for automating common data analysis tasks, including:
 
 * **Data preprocessing and cleaning**: handling missing values, outliers, and data types
 * **Missing value analysis**: identifying columns with missing values and their percentage

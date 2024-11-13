@@ -1,11 +1,6 @@
 [project]
 name = "autopreps"
 version = "0.0.1"
-
-
-[project]
-name = "example_package_YOUR_USERNAME_HERE"
-version = "0.0.1"
 authors = [
   { name="Jon Ortega", email="jonortega20@gmail.com" },
   { name="Haritz Bolumburu", email="haritz.bolumburu@alumni.mondragon.edu" },
