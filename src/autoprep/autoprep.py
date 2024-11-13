@@ -545,3 +545,61 @@ class AutoPrep:
 
         else:
             raise ValueError(f"Invalid method '{method}'. Choose from 'rfe', 'importance', 'correlation', 'selectkbest'.")
+        
+    def simple_feature_importance(self, target, test_size=0.2, top_n=10) -> None:
+        """
+        Train a simple model to calculate and display feature importances based on the target type.
+
+        Parameters
+        ----------
+        target : str
+            Name of the target column for modeling.
+        test_size : float, optional
+            Proportion of the dataset to include in the test split, by default 0.2.
+        top_n : int, optional
+            Number of top features to display in the importance plot.
+        """
+        try:
+            # Verificar que el target sea de tipo str
+            if not isinstance(target, str):
+                raise ValueError("The target parameter must be a string representing the column name.")
+
+            # Verificar que el target exista en el DataFrame
+            if target not in self.df.columns:
+                raise ValueError(f"The target column '{target}' does not exist in the DataFrame.")
+
+            # Separar las variables predictoras (X) y la variable objetivo (y)
+            X = self.df.drop(columns=[target])
+            y = self.df[target]
+            
+        except KeyError:
+            raise ValueError(f"The target column '{target}' does not exist in the DataFrame.")
+
+        # Convertir variables categóricas en variables dummy
+        X = pd.get_dummies(X, drop_first=True)
+
+        # Dividir en conjuntos de entrenamiento y prueba
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
+
+        if pd.api.types.is_numeric_dtype(y):
+            model = RandomForestRegressor(random_state=42)
+        else:
+            model = RandomForestClassifier(random_state=42)
+        
+        model.fit(X_train, y_train)
+
+        if hasattr(model, "feature_importances_"):
+            feature_importances = pd.DataFrame({
+                'Feature': X.columns,
+                'Importance': model.feature_importances_
+            }).sort_values(by="Importance", ascending=False)
+
+            plt.figure(figsize=(10, 6))
+            sns.barplot(x="Importance", y="Feature", data=feature_importances.head(top_n), palette="viridis")
+            plt.title("Top Feature Importances")
+            plt.xlabel("Importance")
+            plt.ylabel("Features")
+            plt.show()
+        else:
+            print("The model does not support feature importances.")
+
