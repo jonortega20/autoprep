@@ -560,25 +560,23 @@ class AutoPrep:
             Number of top features to display in the importance plot.
         """
         try:
-            # Verificar que el target sea de tipo str
+
             if not isinstance(target, str):
                 raise ValueError("The target parameter must be a string representing the column name.")
 
-            # Verificar que el target exista en el DataFrame
+
             if target not in self.df.columns:
                 raise ValueError(f"The target column '{target}' does not exist in the DataFrame.")
 
-            # Separar las variables predictoras (X) y la variable objetivo (y)
             X = self.df.drop(columns=[target])
             y = self.df[target]
             
         except KeyError:
             raise ValueError(f"The target column '{target}' does not exist in the DataFrame.")
 
-        # Convertir variables categóricas en variables dummy
         X = pd.get_dummies(X, drop_first=True)
 
-        # Dividir en conjuntos de entrenamiento y prueba
+
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
 
         if pd.api.types.is_numeric_dtype(y):
