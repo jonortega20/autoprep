@@ -47,16 +47,16 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-autoprep_jonortega20.autoprep">Core Components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep"><code class="docutils literal notranslate"><span class="pre">AutoPrep</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.analyze_missing"><code class="docutils literal notranslate"><span class="pre">AutoPrep.analyze_missing()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.handle_outliers"><code class="docutils literal notranslate"><span class="pre">AutoPrep.handle_outliers()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.get_basic_stats"><code class="docutils literal notranslate"><span class="pre">AutoPrep.get_basic_stats()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.normality_test"><code class="docutils literal notranslate"><span class="pre">AutoPrep.normality_test()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.run_models"><code class="docutils literal notranslate"><span class="pre">AutoPrep.run_models()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.simple_feature_importance"><code class="docutils literal notranslate"><span class="pre">AutoPrep.simple_feature_importance()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.select_features"><code class="docutils literal notranslate"><span class="pre">AutoPrep.select_features()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#autoprep_jonortega20.autoprep.AutoPrep.run_full_analysis"><code class="docutils literal notranslate"><span class="pre">AutoPrep.run_full_analysis()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-autopreps.autoprep">Core Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#autopreps.autoprep.AutoPrep"><code class="docutils literal notranslate"><span class="pre">AutoPrep</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.analyze_missing"><code class="docutils literal notranslate"><span class="pre">AutoPrep.analyze_missing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.handle_outliers"><code class="docutils literal notranslate"><span class="pre">AutoPrep.handle_outliers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.get_basic_stats"><code class="docutils literal notranslate"><span class="pre">AutoPrep.get_basic_stats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.normality_test"><code class="docutils literal notranslate"><span class="pre">AutoPrep.normality_test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.run_models"><code class="docutils literal notranslate"><span class="pre">AutoPrep.run_models()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.simple_feature_importance"><code class="docutils literal notranslate"><span class="pre">AutoPrep.simple_feature_importance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.select_features"><code class="docutils literal notranslate"><span class="pre">AutoPrep.select_features()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autopreps.autoprep.AutoPrep.run_full_analysis"><code class="docutils literal notranslate"><span class="pre">AutoPrep.run_full_analysis()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -93,11 +93,11 @@
   <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
 <p>Detailed API reference for all classes and methods in the library.</p>
-<section id="module-autoprep_jonortega20.autoprep">
-<span id="core-components"></span><h2>Core Components<a class="headerlink" href="#module-autoprep_jonortega20.autoprep" title="Link to this heading"></a></h2>
+<section id="module-autopreps.autoprep">
+<span id="core-components"></span><h2>Core Components<a class="headerlink" href="#module-autopreps.autoprep" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autoprep_jonortega20.autoprep.</span></span><span class="sig-name descname"><span class="pre">AutoPrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">autopreps.autoprep.</span></span><span class="sig-name descname"><span class="pre">AutoPrep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Unified class for data processing, including preprocessing, exploratory analysis,
 and model testing, centralized into a single interface.</p>
@@ -107,8 +107,8 @@ and model testing, centralized into a single interface.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.analyze_missing">
-<span class="sig-name descname"><span class="pre">analyze_missing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.analyze_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.analyze_missing" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.analyze_missing">
+<span class="sig-name descname"><span class="pre">analyze_missing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.analyze_missing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.analyze_missing" title="Link to this definition"></a></dt>
 <dd><p>Analyze and handle missing values in the DataFrame by providing a summary and imputing missing values based on a chosen strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -146,8 +146,8 @@ and model testing, centralized into a single interface.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.handle_outliers">
-<span class="sig-name descname"><span class="pre">handle_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zscore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.handle_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.handle_outliers" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.handle_outliers">
+<span class="sig-name descname"><span class="pre">handle_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zscore'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.handle_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.handle_outliers" title="Link to this definition"></a></dt>
 <dd><p>Detect and handle outliers in specified columns of the DataFrame using a chosen method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -186,8 +186,8 @@ The dictionary has column names as keys and the corresponding count of outliers 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.get_basic_stats">
-<span class="sig-name descname"><span class="pre">get_basic_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.get_basic_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.get_basic_stats" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.get_basic_stats">
+<span class="sig-name descname"><span class="pre">get_basic_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.get_basic_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.get_basic_stats" title="Link to this definition"></a></dt>
 <dd><p>Calculate basic statistics for numerical columns in the DataFrame.</p>
 <p>This function computes common statistics for each numerical column, including:
 mean, median, standard deviation, minimum, and maximum values.</p>
@@ -214,8 +214,8 @@ containing the statistics (‘mean’, ‘median’, ‘std’, ‘min’, ‘ma
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.normality_test">
-<span class="sig-name descname"><span class="pre">normality_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.normality_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.normality_test" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.normality_test">
+<span class="sig-name descname"><span class="pre">normality_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.normality_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.normality_test" title="Link to this definition"></a></dt>
 <dd><p>Perform normality tests on numerical columns by calculating skewness and kurtosis.</p>
 <p>This function calculates the skewness and kurtosis for each specified numerical column
 to assess the normality of the data distribution. Additionally, it determines whether
@@ -254,8 +254,8 @@ while values significantly higher or lower than 3 suggest deviations from normal
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.run_models">
-<span class="sig-name descname"><span class="pre">run_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.run_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.run_models" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.run_models">
+<span class="sig-name descname"><span class="pre">run_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.run_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.run_models" title="Link to this definition"></a></dt>
 <dd><p>Fit and evaluate multiple models on the data, using either regression or classification models depending on the target variable.</p>
 <p>This function splits the data into training and test sets, applies the appropriate machine learning models based on the
 target variable (either regression models for numerical targets or classification models for categorical targets),
@@ -288,8 +288,8 @@ the models used are <cite>RandomForestClassifier</cite> and <cite>LogisticRegres
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.simple_feature_importance">
-<span class="sig-name descname"><span class="pre">simple_feature_importance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.simple_feature_importance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.simple_feature_importance" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.simple_feature_importance">
+<span class="sig-name descname"><span class="pre">simple_feature_importance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.simple_feature_importance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.simple_feature_importance" title="Link to this definition"></a></dt>
 <dd><p>Train a simple model to calculate and display feature importances based on the target type.</p>
 <p>This function splits the data into training and test sets, trains a Random Forest model (either regression or classification depending on the target),
 calculates the feature importances, and visualizes the top features using a bar plot.</p>
@@ -320,8 +320,8 @@ calculates the feature importances, and visualizes the top features using a bar 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.select_features">
-<span class="sig-name descname"><span class="pre">select_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.select_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.select_features" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.select_features">
+<span class="sig-name descname"><span class="pre">select_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.select_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.select_features" title="Link to this definition"></a></dt>
 <dd><p>Perform automatic feature selection based on the specified method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -366,8 +366,8 @@ Default is 0.9.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="autoprep_jonortega20.autoprep.AutoPrep.run_full_analysis">
-<span class="sig-name descname"><span class="pre">run_full_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autoprep_jonortega20/autoprep.html#AutoPrep.run_full_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autoprep_jonortega20.autoprep.AutoPrep.run_full_analysis" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.run_full_analysis">
+<span class="sig-name descname"><span class="pre">run_full_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.run_full_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.run_full_analysis" title="Link to this definition"></a></dt>
 <dd><p>Run a complete analysis pipeline, including missing value analysis, outlier detection,
 basic statistics calculation, normality tests, and model fitting and evaluation (if a target is provided).</p>
 <p>This function performs the following analyses:

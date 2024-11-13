@@ -21,7 +21,7 @@ Here's a quick example to get you started with the library:
 
 .. code-block:: python
 
-   from autoprep_jonortega20.autoprep import AutoPrep
+   from autopreps.autoprep import AutoPrep
    
    # Initialize with your DataFrame
    dp = AutoPrep(df)

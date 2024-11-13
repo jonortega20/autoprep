@@ -1,0 +1,28 @@
+[project]
+name = "autopreps"
+version = "0.0.1"
+
+
+[project]
+name = "example_package_YOUR_USERNAME_HERE"
+version = "0.0.1"
+authors = [
+  { name="Jon Ortega", email="jonortega20@gmail.com" },
+  { name="Haritz Bolumburu", email="haritz.bolumburu@alumni.mondragon.edu" },
+  { name="Iker Barrero", email="iker.barrero@alumni.mondragon.edu" },
+  { name="Jon Tobalina", email="jon.tobalina@alumni.mondragon.edu" }
+]
+description = "A library for automated data preprocessing and initial analysis"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+]
+
+[project.urls]
+Homepage = "https://github.com/jonortega20/autoprep"
+Issues = "https://github.com/jonortega20/autoprep/issues"

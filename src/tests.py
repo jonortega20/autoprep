@@ -1,6 +1,6 @@
 """Test script for the AutoPrep library."""
 
-from autoprep_jonortega20.autoprep import AutoPrep
+from autopreps.autoprep import AutoPrep
 import pandas as pd
 import numpy as np
 
@@ -17,7 +17,6 @@ if __name__ == "__main__":
         'TARGET': [1, 0, 1, 0, 1]
     }
 
-    #data = pd.read_csv('C:\Users\usuario\OneDrive - Mondragon Unibertsitatea\Escritorio\BDATA\BDATA4\Programacion\autoprep\src\medical_sutents_dataset.csv')
     df = pd.DataFrame(data)
 
     # Crear una instancia de AutoPrep con el DataFrame
