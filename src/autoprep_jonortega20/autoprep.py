@@ -51,7 +51,7 @@ class AutoPrep:
 
     # ----------- Preprocessing Methods -----------
 
-    def analyze_missing(self, threshold = 0.9, impute_strategy = "mean") -> dict:
+    def analyze_missing(self, threshold=0.9, impute_strategy="mean") -> dict:
         """
         Analyze and handle missing values in the DataFrame by providing a summary and imputing missing values based on a chosen strategy.
 
@@ -61,18 +61,20 @@ class AutoPrep:
             Maximum ratio of missing values allowed in a column before it is dropped. Default is 0.9 (i.e., columns with more than 90% missing values will be dropped).
         impute_strategy : str, optional
             Strategy for imputing missing values. Can be one of 'mean', 'median', or 'mode'. Default is 'mean'. 
-            - 'mean' replaces missing values with the column's mean (for numeric columns).
-            - 'median' replaces missing values with the column's median (for numeric columns).
-            - 'mode' replaces missing values with the column's mode (for all types of columns, including categorical).
+
+            - **'mean'** replaces missing values with the column's mean (for numeric columns).
+            - **'median'** replaces missing values with the column's median (for numeric columns).
+            - **'mode'** replaces missing values with the column's mode (for all types of columns, including categorical).
 
         Returns
         -------
         dict
-            A dictionary containing the results of the missing value analysis, which includes:
-            - 'total_missing': A dictionary with the total number of missing values per column.
-            - 'columns_with_missing': A dictionary with columns that have missing values and their counts.
-            - 'missing_ratio': A dictionary with the proportion of missing values per column.
-            - 'dropped_columns': A list of columns that were dropped due to having missing values above the specified threshold.
+            A dictionary containing the results of the missing value analysis, which includes the following keys:
+            
+            - **'total_missing'**: A dictionary with the total number of missing values per column.
+            - **'columns_with_missing'**: A dictionary with columns that have missing values and their counts.
+            - **'missing_ratio'**: A dictionary with the proportion of missing values per column.
+            - **'dropped_columns'**: A list of columns that were dropped due to having missing values above the specified threshold.
 
         Raises
         ------
@@ -80,7 +82,7 @@ class AutoPrep:
             If 'threshold' is not a numeric value or 'impute_strategy' is not a string.
         ValueError
             If 'impute_strategy' is not one of the valid options ('mean', 'median', or 'mode').
-    """
+        """
         warnings.filterwarnings("ignore")
 
         if not isinstance(threshold, numbers.Number):
@@ -127,11 +129,13 @@ class AutoPrep:
         columns : list, optional
             List of column names to check for outliers. If None, all numeric columns will be checked. Default is None.
         method : str, optional
-            Method to detect outliers. Options are:
-            - 'zscore': Detect outliers based on Z-scores, where values beyond the specified threshold are considered outliers.
-            - 'iqr': Detect outliers using the Interquartile Range (IQR), where values outside the range defined by 1.5 * IQR above Q3 or below Q1 are considered outliers.
-            Default is 'zscore'.
+            Method to detect outliers. Default is 'zscore'. Options are:
+
+            - **'zscore'**: Detect outliers based on Z-scores, where values beyond the specified threshold are considered outliers.
+            - **'iqr'**: Detect outliers using the Interquartile Range (IQR), where values outside the range defined by 1.5 * IQR above Q3 or below Q1 are considered outliers.
+    
         threshold : float, optional
+            
             The threshold value for outlier detection. For 'zscore' method, it defines the Z-score beyond which values are considered outliers. 
             For 'iqr' method, values outside 1.5 * IQR above Q3 or below Q1 are considered outliers.
             Default is 3.0.
@@ -153,7 +157,7 @@ class AutoPrep:
         -----
         - The 'zscore' method detects outliers based on the standard deviation of each column, where values with Z-scores greater than the threshold are flagged as outliers.
         - The 'iqr' method detects outliers by identifying values outside the range defined by 1.5 * IQR (Interquartile Range), which is the range between the first (Q1) and third (Q3) quartiles.
-    """
+        """
         warnings.filterwarnings("ignore")
         if columns is None:
             columns = self.df.select_dtypes(include=[np.number]).columns
@@ -205,7 +209,7 @@ class AutoPrep:
         - 'std': The standard deviation of the column values.
         - 'min': The smallest value in the column.
         - 'max': The largest value in the column.
-    """
+        """
         warnings.filterwarnings("ignore")
         stats = {}
         numeric_cols = self.df.select_dtypes(include=[np.number]).columns
@@ -226,6 +230,7 @@ class AutoPrep:
         This function calculates the skewness and kurtosis for each specified numerical column
         to assess the normality of the data distribution. Additionally, it determines whether 
         the distribution is approximately normal based on skewness and kurtosis thresholds:
+
         - A skewness value between -2 and 2 is considered acceptable for normality.
         - A kurtosis value between -7 and 7 is considered acceptable for normality.
 
@@ -240,19 +245,19 @@ class AutoPrep:
         dict
             A dictionary where each key is a column name, and the value is another dictionary
             containing the following keys:
-            - 'skewness': The skewness of the column.
-            - 'kurtosis': The kurtosis of the column.
-            - 'is_normal': A boolean indicating whether the column's distribution is approximately normal
-            based on skewness and kurtosis thresholds.
+
+            - **'skewness'**: The skewness of the column.
+            - **'kurtosis'**: The kurtosis of the column.
+            - **'is_normal'**: A boolean indicating whether the column's distribution is approximately normal based on skewness and kurtosis thresholds.
 
         Notes
         -----
         - Skewness measures the asymmetry of the distribution: negative skew indicates a left-heavy distribution,
-        and positive skew indicates a right-heavy distribution.
+          and positive skew indicates a right-heavy distribution.
         - Kurtosis measures the tailedness of the distribution: a value close to 3 suggests a normal distribution,
-        while values significantly higher or lower than 3 suggest deviations from normality.
+          while values significantly higher or lower than 3 suggest deviations from normality.
         - The normality criteria used in this function are based on general empirical thresholds for skewness and kurtosis.
-    """
+        """
         warnings.filterwarnings("ignore")
         if columns is None:
             columns = self.df.select_dtypes(include=[np.number]).columns
@@ -303,15 +308,9 @@ class AutoPrep:
         -----
         - The function automatically detects whether the target variable is numeric (regression) or categorical (classification).
         - The models used for regression are `RandomForestRegressor` and `LinearRegression`, and for classification, 
-        the models used are `RandomForestClassifier` and `LogisticRegression`.
+          the models used are `RandomForestClassifier` and `LogisticRegression`.
         - The evaluation metric for regression is Mean Squared Error (MSE), and for classification, it is Accuracy.
-        - The function splits the data into training (80%) and testing (20%) sets.
-
-        Example
-        -------
-        result = model.run_models(target="price")
-        print(result)
-    """
+        """
         warnings.filterwarnings("ignore")
         if target is None:
             raise ValueError("Target column must be specified for model testing.")
@@ -384,10 +383,6 @@ class AutoPrep:
         - The function automatically detects whether the target variable is numeric (regression) or categorical (classification) to decide the model type.
         - It uses a Random Forest model (RandomForestRegressor for regression or RandomForestClassifier for classification).
         - The function visualizes the importance of the top features using a bar plot, with the feature names on the y-axis and their importance scores on the x-axis.
-
-        Example
-        -------
-        model.simple_feature_importance(target="price", top_n=10)
         """
         try:
 
@@ -437,16 +432,15 @@ class AutoPrep:
         """
         Perform automatic feature selection based on the specified method.
 
-        This function allows for feature selection using various methods:
-        - 'rfe': Recursive Feature Elimination
-        - 'importance': Feature importance based on a Random Forest model
-        - 'correlation': Select features with the highest correlation to the target variable
-        - 'selectkbest': Select K best features using a statistical test (Chi-squared)
-
         Parameters
         ----------
         method : str, optional
             Feature selection method. Options are 'rfe', 'importance', 'correlation', 'selectkbest', by default 'rfe'.
+
+            - **'rfe'**: Recursive Feature Elimination
+            - **'importance'**: Feature importance based on a Random Forest model
+            - **'correlation'**: Select features with the highest correlation to the target variable
+            - **'selectkbest'**: Select K best features using a statistical test (Chi-squared)
         target : str, optional
             The name of the target column for feature selection. This is used to compute correlations and fit models.
         k : int, optional
@@ -476,12 +470,7 @@ class AutoPrep:
         - 'selectkbest': Selects the top K features based on the Chi-squared test.
         - The `k` parameter must be less than or equal to the number of available features in the DataFrame.
         - The `threshold` parameter is only used for the 'correlation' method to filter features by their correlation with the target.
-
-        Example
-        -------
-        selected_features = model.select_features(method='importance', target='price', k=5)
-        print(selected_features)
-    """
+        """
         warnings.filterwarnings("ignore")
         # Validación de formatos correctos
         if not isinstance(k, int):
@@ -570,12 +559,13 @@ class AutoPrep:
         -------
         dict
             A dictionary containing the results of the different analyses:
-            - 'missing_analysis': Results of the missing value analysis
-            - 'outliers_analysis': Results of the outlier detection and handling
-            - 'basic_stats': Basic statistics for numerical columns
-            - 'normality_tests': Results of normality tests (skewness and kurtosis)
-            - 'model_accuracy' (optional): Model evaluation results (if target is provided), containing accuracy for classification or MSE for regression models.
 
+            - **'missing_analysis'**: Results of the missing value analysis
+            - **'outliers_analysis'**: Results of the outlier detection and handling
+            - **'basic_stats'**: Basic statistics for numerical columns
+            - **'normality_tests'**: Results of normality tests (skewness and kurtosis)
+            - **'model_accuracy'** (optional): Model evaluation results (if target is provided), containing accuracy for classification or MSE for regression models.
+            
         Raises
         ------
         ValueError
@@ -587,12 +577,7 @@ class AutoPrep:
         -----
         - If no target column is specified, the function performs only the exploratory data analysis steps: missing value analysis, outlier detection, basic stats, and normality tests.
         - If a target column is provided, the function will perform model training and evaluation (regression or classification) based on the target type.
-
-        Example
-        -------
-        result = model.run_full_analysis(target="price")
-        print(result)
-    """
+        """
         warnings.filterwarnings("ignore")
 
         if target is None:
@@ -614,9 +599,3 @@ class AutoPrep:
         if target:
             results['model_accuracy'] = self.run_models(target)
         return results
-    
-
-
-        
-
-

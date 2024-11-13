@@ -85,10 +85,14 @@
 <li class="toctree-l2"><a class="reference internal" href="usage.html#outlier-detection">Outlier Detection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#basic-statistics">Basic Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="usage.html#model-testing">Model Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#feature-importance">Feature Importance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#feature-selection">Feature Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#normality-test">Normality Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#full-analysis-pipeline">Full Analysis Pipeline</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-autoprep.autoprep">Core Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-autoprep_jonortega20.autoprep">Core Components</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a><ul>
@@ -102,7 +106,7 @@
 <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
 <p>Here’s a quick example to get you started with the library:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoprep.autoprep</span> <span class="kn">import</span> <span class="n">AutoPrep</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">autoprep_jonortega20.autoprep</span> <span class="kn">import</span> <span class="n">AutoPrep</span>
 
 <span class="c1"># Initialize with your DataFrame</span>
 <span class="n">dp</span> <span class="o">=</span> <span class="n">AutoPrep</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -111,7 +115,7 @@
 <span class="n">results</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">run_full_analysis</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>More examples of usage available in the Usage section.</p>
+<p>More examples of usage available in the Usage Guide section.</p>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and Tables:<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>

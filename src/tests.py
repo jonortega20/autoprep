@@ -51,7 +51,12 @@ if __name__ == "__main__":
 
     # Descubrir la importancia de las caracteristicas en el modelo
     feature_importance = processor.simple_feature_importance(target="TARGET")
-    print("ENTRENAMIENTO DE MODELO:", feature_importance)
+    print("IMPORTANCIA DE LAS CARACTERÍSTICAS:", feature_importance)
+    print(' ')
+
+    # Seleccionar las características más relevantes
+    selected_features = processor.select_features(target="TARGET")
+    print("SELECCIÓN DE CARACTERÍSTICAS MÁS RELEVANTES:", selected_features)
     print(' ')
 
     # Si deseas ejecutar run_full_analysis sin target, puedes hacerlo así:

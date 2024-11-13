@@ -21,7 +21,7 @@ Here's a quick example to get you started with the library:
 
 .. code-block:: python
 
-   from autoprep.autoprep import AutoPrep
+   from autoprep_jonortega20.autoprep import AutoPrep
    
    # Initialize with your DataFrame
    dp = AutoPrep(df)
@@ -29,7 +29,7 @@ Here's a quick example to get you started with the library:
    # Run complete analysis
    results = dp.run_full_analysis(target='target_column')
 
-More examples of usage available in the Usage section.
+More examples of usage available in the Usage Guide section.
 
 
 

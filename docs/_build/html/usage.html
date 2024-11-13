@@ -50,6 +50,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#outlier-detection">Outlier Detection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#basic-statistics">Basic Statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#model-testing">Model Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-importance">Feature Importance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-selection">Feature Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#normality-test">Normality Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-analysis-pipeline">Full Analysis Pipeline</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
@@ -110,11 +114,46 @@
 </section>
 <section id="model-testing">
 <h2>Model Testing<a class="headerlink" href="#model-testing" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data for modeling</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
-    <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span>
-    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span>
-<span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run models and evaluate performance</span>
+<span class="n">model_scores</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">run_models</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="feature-importance">
+<h2>Feature Importance<a class="headerlink" href="#feature-importance" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get and display feature importance</span>
+<span class="n">feature_importances</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">simple_feature_importance</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature_importances</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="feature-selection">
+<h2>Feature Selection<a class="headerlink" href="#feature-selection" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform feature selection using the RFE method</span>
+<span class="n">selected_features</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;rfe&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">selected_features</span><span class="p">)</span>
+
+<span class="c1"># Perform feature selection based on correlation</span>
+<span class="n">selected_features_corr</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">selected_features_corr</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="normality-test">
+<h2>Normality Test<a class="headerlink" href="#normality-test" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform normality test for numerical columns</span>
+<span class="n">normality_results</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">normality_test</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">,</span> <span class="s1">&#39;col2&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">normality_results</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="full-analysis-pipeline">
+<h2>Full Analysis Pipeline<a class="headerlink" href="#full-analysis-pipeline" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the full analysis pipeline, including missing value analysis,</span>
+<span class="c1"># outlier detection, basic stats, normality tests, and model testing</span>
+<span class="n">full_analysis</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">run_full_analysis</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">full_analysis</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
