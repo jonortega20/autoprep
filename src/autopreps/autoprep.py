@@ -288,19 +288,14 @@ class AutoPrep:
         Returns
         -------
         dict
-            A dictionary where each key is a column name, and the value is another dictionary
-            containing the following keys:
-
-            - **'skewness'**: The skewness of the column.
-            - **'kurtosis'**: The kurtosis of the column.
-            - **'is_normal'**: A boolean indicating whether the column's distribution is approximately normal based on skewness and kurtosis thresholds.
+            - 'skewness': The skewness of the column.
+            - 'kurtosis': The kurtosis of the column.
+            - 'is_normal': A boolean indicating whether the column's distribution is pproximately normal based on skewness and kurtosis thresholds.
 
         Notes
         -----
-        - Skewness measures the asymmetry of the distribution: negative skew indicates a left-heavy distribution,
-        and positive skew indicates a right-heavy distribution.
-        - Kurtosis measures the tailedness of the distribution: a value close to 3 suggests a normal distribution,
-        while values significantly higher or lower than 3 suggest deviations from normality.
+        - Skewness measures the asymmetry of the distribution: negative skew indicates a left-heavy distribution, and positive skew indicates a right-heavy distribution.
+        - Kurtosis measures the tailedness of the distribution: a value close to 3 suggests a normal distribution, while values significantly higher or lower than 3 suggest deviations from normality.
         - The normality criteria used in this function are based on general empirical thresholds for skewness and kurtosis.
         """
         warnings.filterwarnings("ignore")

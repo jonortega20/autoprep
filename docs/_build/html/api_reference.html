@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API Reference &mdash; autopreps: Data Processing Library 0.0.1 documentation</title>
+  <title>API Reference &mdash; autopreps: Data Processing Library 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/documentation_options.js?v=e259d695"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -190,12 +190,12 @@ The dictionary has column names as keys and the corresponding count of outliers 
 <span class="sig-name descname"><span class="pre">get_basic_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.get_basic_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.get_basic_stats" title="Link to this definition"></a></dt>
 <dd><p>Calculate basic statistics for numerical columns in the DataFrame.</p>
 <p>This function computes common statistics for each numerical column, including:
-mean, median, standard deviation, minimum, and maximum values.</p>
+mean, median, standard deviation, minimum, maximum, and skewness.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A dictionary containing the basic statistics for each numerical column.
-The keys of the dictionary are the column names, and the values are dictionaries
-containing the statistics (‘mean’, ‘median’, ‘std’, ‘min’, ‘max’) for each column.</p>
+The keys of the dictionary are the column names, and the values are strings
+in the format: ‘skewness: value, std: value, mean: value, median: value, min: value, max: value’.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
@@ -204,12 +204,18 @@ containing the statistics (‘mean’, ‘median’, ‘std’, ‘min’, ‘ma
 <p class="rubric">Notes</p>
 <ul class="simple">
 <li><p>The function filters the DataFrame to only include numerical columns (i.e., columns with int or float data types).</p></li>
-<li><p>The statistics are calculated as follows:</p></li>
+<li><dl class="simple">
+<dt>The statistics are calculated as follows:</dt><dd><ul>
+<li><p>‘skewness’: The asymmetry of the data distribution.</p></li>
+<li><p>‘std’: The standard deviation of the column values.</p></li>
 <li><p>‘mean’: The average of the values in the column.</p></li>
 <li><p>‘median’: The middle value when the values are sorted.</p></li>
-<li><p>‘std’: The standard deviation of the column values.</p></li>
 <li><p>‘min’: The smallest value in the column.</p></li>
 <li><p>‘max’: The largest value in the column.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </dd></dl>
 
@@ -230,12 +236,10 @@ the distribution is approximately normal based on skewness and kurtosis threshol
 in the DataFrame will be tested.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><p>A dictionary where each key is a column name, and the value is another dictionary
-containing the following keys:</p>
-<ul class="simple">
-<li><p><strong>’skewness’</strong>: The skewness of the column.</p></li>
-<li><p><strong>’kurtosis’</strong>: The kurtosis of the column.</p></li>
-<li><p><strong>’is_normal’</strong>: A boolean indicating whether the column’s distribution is approximately normal based on skewness and kurtosis thresholds.</p></li>
+<dd class="field-even"><p><ul class="simple">
+<li><p>‘skewness’: The skewness of the column.</p></li>
+<li><p>’kurtosis’: The kurtosis of the column.</p></li>
+<li><p>’is_normal’: A boolean indicating whether the column’s distribution is pproximately normal based on skewness and kurtosis thresholds.</p></li>
 </ul>
 </p>
 </dd>
@@ -245,10 +249,8 @@ containing the following keys:</p>
 </dl>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li><p>Skewness measures the asymmetry of the distribution: negative skew indicates a left-heavy distribution,
-and positive skew indicates a right-heavy distribution.</p></li>
-<li><p>Kurtosis measures the tailedness of the distribution: a value close to 3 suggests a normal distribution,
-while values significantly higher or lower than 3 suggest deviations from normality.</p></li>
+<li><p>Skewness measures the asymmetry of the distribution: negative skew indicates a left-heavy distribution, and positive skew indicates a right-heavy distribution.</p></li>
+<li><p>Kurtosis measures the tailedness of the distribution: a value close to 3 suggests a normal distribution, while values significantly higher or lower than 3 suggest deviations from normality.</p></li>
 <li><p>The normality criteria used in this function are based on general empirical thresholds for skewness and kurtosis.</p></li>
 </ul>
 </dd></dl>
@@ -321,7 +323,7 @@ calculates the feature importances, and visualizes the top features using a bar 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="autopreps.autoprep.AutoPrep.select_features">
-<span class="sig-name descname"><span class="pre">select_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.select_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.select_features" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">select_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rfe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.select_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.select_features" title="Link to this definition"></a></dt>
 <dd><p>Perform automatic feature selection based on the specified method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -370,42 +372,11 @@ Default is 0.9.</p></li>
 <span class="sig-name descname"><span class="pre">run_full_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/autopreps/autoprep.html#AutoPrep.run_full_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#autopreps.autoprep.AutoPrep.run_full_analysis" title="Link to this definition"></a></dt>
 <dd><p>Run a complete analysis pipeline, including missing value analysis, outlier detection,
 basic statistics calculation, normality tests, and model fitting and evaluation (if a target is provided).</p>
-<p>This function performs the following analyses:
-- Missing value analysis
-- Outlier detection and handling
-- Calculation of basic statistics for numerical columns
-- Normality tests (skewness and kurtosis)
-If a target column is provided, the function will also fit and evaluate machine learning models to predict the target variable.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>target</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the target column for modeling. If provided, the function will also fit and evaluate models on the data.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><p>A dictionary containing the results of the different analyses:</p>
-<ul class="simple">
-<li><p><strong>’missing_analysis’</strong>: Results of the missing value analysis</p></li>
-<li><p><strong>’outliers_analysis’</strong>: Results of the outlier detection and handling</p></li>
-<li><p><strong>’basic_stats’</strong>: Basic statistics for numerical columns</p></li>
-<li><p><strong>’normality_tests’</strong>: Results of normality tests (skewness and kurtosis)</p></li>
-<li><p><strong>’model_accuracy’</strong> (optional): Model evaluation results (if target is provided), containing accuracy for classification or MSE for regression models.</p></li>
-</ul>
-</p>
-</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>ValueError</strong> – If the target column is not specified when running the analysis.</p></li>
-<li><p><strong>TypeError</strong> – If the target column is not a string.</p></li>
-</ul>
-</dd>
 </dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>If no target column is specified, the function performs only the exploratory data analysis steps: missing value analysis, outlier detection, basic stats, and normality tests.</p></li>
-<li><p>If a target column is provided, the function will perform model training and evaluation (regression or classification) based on the target type.</p></li>
-</ul>
 </dd></dl>
 
 </dd></dl>

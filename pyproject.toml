@@ -1,6 +1,6 @@
 [project]
 name = "autopreps"
-version = "0.2.0"
+version = "0.3.0"
 authors = [
   { name="Jon Ortega", email="jonortega20@gmail.com" },
   { name="Haritz Bolumburu", email="haritz.bolumburu@alumni.mondragon.edu" },

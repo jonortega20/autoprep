@@ -1,9 +1,9 @@
 Requirements
 ============
 
-A continuación, se listan las versiones de las bibliotecas necesarias para el proyecto y posibles incompatibilidades:
+Below are the versions of the necessary libraries for the project and potential incompatibilities:
 
-Versiones de librerías conda
+Conda library versions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table:: 
@@ -58,7 +58,7 @@ Versiones de librerías conda
    * - sqlite
      - 3.45.3
 
-Versiones de librerías pip
+Pip library versions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table:: 

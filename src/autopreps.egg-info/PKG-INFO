@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: autopreps
-Version: 0.2.0
+Version: 0.3.0
 Summary: A library for automated data preprocessing and initial analysis
 Author-email: Jon Ortega <jonortega20@gmail.com>, Haritz Bolumburu <haritz.bolumburu@alumni.mondragon.edu>, Iker Barrero <iker.barrero@alumni.mondragon.edu>, Jon Tobalina <jon.tobalina@alumni.mondragon.edu>
 Project-URL: Homepage, https://github.com/jonortega20/autoprep

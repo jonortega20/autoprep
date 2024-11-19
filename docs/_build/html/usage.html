@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage Guide &mdash; autopreps: Data Processing Library 0.0.1 documentation</title>
+  <title>Usage Guide &mdash; autopreps: Data Processing Library 0.3.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/documentation_options.js?v=e259d695"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -91,15 +91,14 @@
 <h2>Missing Value Analysis<a class="headerlink" href="#missing-value-analysis" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analyze missing values</span>
 <span class="n">missing_stats</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">analyze_missing</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;total_missing&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">missing_stats</span><span class="p">[</span><span class="s1">&#39;columns_with_missing&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_stats</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="outlier-detection">
 <h2>Outlier Detection<a class="headerlink" href="#outlier-detection" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detect outliers using z-score method</span>
-<span class="n">outliers</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">handle_outliers</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;zscore&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">handle_outliers</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -115,35 +114,35 @@
 <section id="model-testing">
 <h2>Model Testing<a class="headerlink" href="#model-testing" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run models and evaluate performance</span>
-<span class="n">model_scores</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">run_models</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)</span>
+<span class="n">model_results</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">run_models</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_results</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="feature-importance">
 <h2>Feature Importance<a class="headerlink" href="#feature-importance" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get and display feature importance</span>
-<span class="n">feature_importances</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">simple_feature_importance</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">feature_importances</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">simple_feature_importance</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">feature_importances</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="feature-selection">
 <h2>Feature Selection<a class="headerlink" href="#feature-selection" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform feature selection using the RFE method</span>
-<span class="n">selected_features</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;rfe&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform feature selection using the RFE method (the default method)</span>
+<span class="n">selected_features</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">selected_features</span><span class="p">)</span>
 
-<span class="c1"># Perform feature selection based on correlation</span>
-<span class="n">selected_features_corr</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;target_column&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">selected_features_corr</span><span class="p">)</span>
+<span class="c1"># Perform feature selection based on SelectKBest</span>
+<span class="n">selected_features_kbest</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;selectkbest&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">selected_features_kbest</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="normality-test">
 <h2>Normality Test<a class="headerlink" href="#normality-test" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform normality test for numerical columns</span>
-<span class="n">normality_results</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">normality_test</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">,</span> <span class="s1">&#39;col2&#39;</span><span class="p">])</span>
+<span class="n">normality_results</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">normality_test</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">normality_results</span><span class="p">)</span>
 </pre></div>
 </div>
