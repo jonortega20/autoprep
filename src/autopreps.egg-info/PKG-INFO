@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: autopreps
+Version: 0.2.0
+Summary: A library for automated data preprocessing and initial analysis
+Author-email: Jon Ortega <jonortega20@gmail.com>, Haritz Bolumburu <haritz.bolumburu@alumni.mondragon.edu>, Iker Barrero <iker.barrero@alumni.mondragon.edu>, Jon Tobalina <jon.tobalina@alumni.mondragon.edu>
+Project-URL: Homepage, https://github.com/jonortega20/autoprep
+Project-URL: Issues, https://github.com/jonortega20/autoprep/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: license.txt
+
+# Data Processing Library
+
+A Python library for automated data preprocessing, exploratory analysis, and basic model testing.
+
+## Features
+
+- Automated data preprocessing
+- Missing value analysis and handling
+- Outlier detection
+- Basic statistical analysis
+- Simple model testing capabilities
+
+## Installation
+
+```bash
+pip install .
+```
+
+## Quick Start
+
+```python
+from data_processing import DataProcessing
+import pandas as pd
+
+# Load your data
+df = pd.DataFrame(...)  # Your data here
+
+# Initialize the AutoPrep object
+dp = AutoPrep(df)
+
+# Run full analysis
+results = dp.run_full_analysis(target='target_column')
+```
+
+## Documentation
+
+For detailed documentation, please refer to the docstrings in the code or build the Sphinx documentation:
+
+```bash
+cd docs
+make html
+```

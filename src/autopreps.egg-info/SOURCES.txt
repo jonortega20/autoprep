@@ -1,0 +1,11 @@
+README.md
+license.txt
+pyproject.toml
+src/setup.py
+src/tests.py
+src/autopreps/__init__.py
+src/autopreps/autoprep.py
+src/autopreps.egg-info/PKG-INFO
+src/autopreps.egg-info/SOURCES.txt
+src/autopreps.egg-info/dependency_links.txt
+src/autopreps.egg-info/top_level.txt

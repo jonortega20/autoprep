@@ -1,0 +1,3 @@
+autopreps
+setup
+tests
