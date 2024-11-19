@@ -20,13 +20,12 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[
-        "numpy>=1.24.0",
+        "numpy>=2.1.3",
         "pandas>=2.2.3",
         "matplotlib>=3.9.2",
         "seaborn>=0.13.2",
         "scikit-learn>=1.5.2",
         "scipy>=1.14.1",
-        "statsmodels>=0.14.4",
         "sphinx_rtd_theme>=3.0.1"
     ],
     classifiers=[
