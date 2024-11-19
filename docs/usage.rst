@@ -11,8 +11,7 @@ Missing Value Analysis
 
    # Analyze missing values
    missing_stats = dp.analyze_missing(threshold=0.9)
-   print(missing_stats['total_missing'])
-   print(missing_stats['columns_with_missing'])
+   print(missing_stats)
 
 Outlier Detection
 ~~~~~~~~~~~~~~~~~
@@ -20,7 +19,7 @@ Outlier Detection
 .. code-block:: python
 
    # Detect outliers using z-score method
-   outliers = dp.handle_outliers(method='zscore', threshold=3.0)
+   outliers = dp.handle_outliers()
    print(outliers)
 
 Basic Statistics
@@ -38,8 +37,8 @@ Model Testing
 .. code-block:: python
 
    # Run models and evaluate performance
-   model_scores = dp.run_models(target='target_column')
-   print(model_scores)
+   model_results = dp.run_models(target='target_column')
+   print(model_results)
 
 Feature Importance
 ~~~~~~~~~~~~~~~~~~
@@ -47,7 +46,7 @@ Feature Importance
 .. code-block:: python
 
    # Get and display feature importance
-   feature_importances = dp.simple_feature_importance(target='target_column', top_n=10)
+   feature_importances = dp.simple_feature_importance(target='target_column', top_n=5)
    print(feature_importances)
 
 Feature Selection
@@ -55,13 +54,13 @@ Feature Selection
 
 .. code-block:: python
 
-   # Perform feature selection using the RFE method
-   selected_features = dp.select_features(method='rfe', target='target_column', k=5)
+   # Perform feature selection using the RFE method (the default method)
+   selected_features = dp.select_features(target='target_column', k=2)
    print(selected_features)
 
-   # Perform feature selection based on correlation
-   selected_features_corr = dp.select_features(method='correlation', target='target_column', threshold=0.9)
-   print(selected_features_corr)
+   # Perform feature selection based on SelectKBest
+   selected_features_kbest = dp.select_features(method='selectkbest', target='species', k=3)
+   print(selected_features_kbest)
 
 Normality Test
 ~~~~~~~~~~~~~~
@@ -69,7 +68,7 @@ Normality Test
 .. code-block:: python
 
    # Perform normality test for numerical columns
-   normality_results = dp.normality_test(columns=['col1', 'col2'])
+   normality_results = dp.normality_test()
    print(normality_results)
 
 Full Analysis Pipeline

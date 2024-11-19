@@ -91,20 +91,48 @@ class AutoPrep:
         if not isinstance(impute_strategy, str):
             raise TypeError("Impute strategy must be a string value.")
 
-        # Calcular estadísticas de valores faltantes
         missing_stats = {
-        'total_missing': self.df.isnull().sum().to_dict(),
-        'columns_with_missing': {col: val for col, val in self.df.isnull().sum().items() if val > 0},
-        'missing_ratio': self.df.isnull().mean().to_dict()
+            'total_missing': self.df.isnull().sum().to_dict(),
+            'columns_with_missing': {col: val for col, val in self.df.isnull().sum().items() if val > 0},
+            'missing_ratio': self.df.isnull().mean().to_dict()
         }
 
-        # Identificar columnas a eliminar
+        any_missing = any(missing_stats['total_missing'].values())
+
+        print("Total Missing Values:")
+        if any_missing:
+            for col, total in missing_stats['total_missing'].items():
+                print(f"{col}: {total} missing", end="  |  ")
+        else:
+            print("No missings in the dataset.")
+        print("\n")
+
+        print("Columns with Missing Values:")
+        if missing_stats['columns_with_missing']:
+            for col, count in missing_stats['columns_with_missing'].items():
+                print(f"{col}: {count} missing")
+        else:
+            print("No missing values in any column.")
+        print("\n")
+
+        print("Missing Values Ratio:")
+        if any_missing:
+            for col, ratio in missing_stats['missing_ratio'].items():
+                print(f"{col}: {ratio:.2f} missing ratio")
+        else:
+            for col in missing_stats['missing_ratio'].keys():
+                print(f"{col}: 0.00 missing ratio")
+        print("\n")
+
         cols_to_drop = [col for col, ratio in missing_stats['missing_ratio'].items() if ratio > threshold]
         if cols_to_drop:
             self.df.drop(columns=cols_to_drop, inplace=True)
             missing_stats['dropped_columns'] = cols_to_drop
+            print(f"Dropped Columns (more than {threshold * 100}% missing): {cols_to_drop}")
+        else:
+            missing_stats['dropped_columns'] = []
+            print("No columns were dropped based on missing value threshold.")
 
-        # Imputación de valores faltantes según la estrategia
         for col in self.df.columns:
             if self.df[col].isnull().any():
                 if impute_strategy == "mean" and self.df[col].dtype in ['float64', 'int64']:
@@ -118,9 +146,12 @@ class AutoPrep:
                 else:
                     raise ValueError("Invalid impute strategy. Choose from 'mean', 'median', or 'mode'.")
 
-        return missing_stats
-
-    def handle_outliers(self, columns = None, method = "zscore", threshold = 3.0) -> dict:
+        if any_missing:
+            return missing_stats
+        else:
+            return {}
+    
+    def handle_outliers(self, columns=None, method="zscore", threshold=3.0) -> dict:
         """
         Detect and handle outliers in specified columns of the DataFrame using a chosen method.
 
@@ -135,7 +166,6 @@ class AutoPrep:
             - **'iqr'**: Detect outliers using the Interquartile Range (IQR), where values outside the range defined by 1.5 * IQR above Q3 or below Q1 are considered outliers.
     
         threshold : float, optional
-            
             The threshold value for outlier detection. For 'zscore' method, it defines the Z-score beyond which values are considered outliers. 
             For 'iqr' method, values outside 1.5 * IQR above Q3 or below Q1 are considered outliers.
             Default is 3.0.
@@ -159,19 +189,21 @@ class AutoPrep:
         - The 'iqr' method detects outliers by identifying values outside the range defined by 1.5 * IQR (Interquartile Range), which is the range between the first (Q1) and third (Q3) quartiles.
         """
         warnings.filterwarnings("ignore")
-        if columns is None:
-            columns = self.df.select_dtypes(include=[np.number]).columns
         
+        if columns is None:
+            columns = list(self.df.select_dtypes(include=[np.number]).columns)  
+
         if not isinstance(columns, list):
             raise TypeError("Columns must be a list of column names.")
         
         if not isinstance(method, str):
             raise TypeError("Method must be a string value.")
         
-        if isinstance(threshold, numbers.Number):
+        if not isinstance(threshold, numbers.Number):
             raise TypeError("Threshold must be a numeric value.")
 
         outliers_stats = {}
+
         for col in columns:
             if method == "zscore":
                 z_scores = np.abs((self.df[col] - self.df[col].mean()) / self.df[col].std())
@@ -182,48 +214,61 @@ class AutoPrep:
                 outliers_stats[col] = ((self.df[col] < (Q1 - 1.5 * IQR)) | (self.df[col] > (Q3 + 1.5 * IQR))).sum()
             else:
                 raise ValueError("Invalid method. Choose from 'zscore' or 'iqr'.")
+        
         return outliers_stats
 
     # ----------- Exploratory Analysis Methods -----------
-
+    
     def get_basic_stats(self) -> dict:
         """
         Calculate basic statistics for numerical columns in the DataFrame.
 
         This function computes common statistics for each numerical column, including:
-        mean, median, standard deviation, minimum, and maximum values.
+        mean, median, standard deviation, minimum, maximum, and skewness.
 
         Returns
         -------
         dict
             A dictionary containing the basic statistics for each numerical column.
-            The keys of the dictionary are the column names, and the values are dictionaries
-            containing the statistics ('mean', 'median', 'std', 'min', 'max') for each column.
+            The keys of the dictionary are the column names, and the values are strings
+            in the format: 'skewness: value, std: value, mean: value, median: value, min: value, max: value'.
 
         Notes
         -----
         - The function filters the DataFrame to only include numerical columns (i.e., columns with int or float data types).
         - The statistics are calculated as follows:
-        - 'mean': The average of the values in the column.
-        - 'median': The middle value when the values are sorted.
-        - 'std': The standard deviation of the column values.
-        - 'min': The smallest value in the column.
-        - 'max': The largest value in the column.
+            - 'skewness': The asymmetry of the data distribution.
+            - 'std': The standard deviation of the column values.
+            - 'mean': The average of the values in the column.
+            - 'median': The middle value when the values are sorted.
+            - 'min': The smallest value in the column.
+            - 'max': The largest value in the column.
         """
         warnings.filterwarnings("ignore")
         stats = {}
         numeric_cols = self.df.select_dtypes(include=[np.number]).columns
+        
         for col in numeric_cols:
-            stats[col] = {
-                'mean': float(self.df[col].mean()),
-                'median': float(self.df[col].median()),
-                'std': float(self.df[col].std()),
-                'min': float(self.df[col].min()),
-                'max': float(self.df[col].max())
-            }
+
+            skewness = float(self.df[col].skew())
+            std_dev = float(self.df[col].std())
+            mean_val = float(self.df[col].mean())
+            median_val = float(self.df[col].median())
+            min_val = float(self.df[col].min())
+            max_val = float(self.df[col].max())
+
+            stats[col] = (
+                f"skewness: {round(skewness, 2)}, "
+                f"std: {round(std_dev, 2)}, "
+                f"mean: {round(mean_val, 2)}, "
+                f"median: {round(median_val, 2)}, "
+                f"min: {round(min_val, 2)}, "
+                f"max: {round(max_val, 2)}"
+            )
+        
         return stats
 
-    def normality_test(self, columns = None) -> dict:
+    def normality_test(self, columns=None) -> dict:
         """
         Perform normality tests on numerical columns by calculating skewness and kurtosis.
 
@@ -253,19 +298,25 @@ class AutoPrep:
         Notes
         -----
         - Skewness measures the asymmetry of the distribution: negative skew indicates a left-heavy distribution,
-          and positive skew indicates a right-heavy distribution.
+        and positive skew indicates a right-heavy distribution.
         - Kurtosis measures the tailedness of the distribution: a value close to 3 suggests a normal distribution,
-          while values significantly higher or lower than 3 suggest deviations from normality.
+        while values significantly higher or lower than 3 suggest deviations from normality.
         - The normality criteria used in this function are based on general empirical thresholds for skewness and kurtosis.
         """
         warnings.filterwarnings("ignore")
+        
         if columns is None:
             columns = self.df.select_dtypes(include=[np.number]).columns
-        
+            
+        columns = list(columns)
         if not isinstance(columns, list):
             raise TypeError("Columns must be a list of column names.")
+        
+        if len(columns) == 0:
+            raise ValueError("No numerical columns found in the DataFrame.")
 
         results = {}
+        
         for col in columns:
             skewness = float(self.df[col].skew())
             kurtosis = float(self.df[col].kurtosis())
@@ -274,8 +325,9 @@ class AutoPrep:
                 'kurtosis': kurtosis,
                 'is_normal': abs(skewness) < 2 and abs(kurtosis) < 7
             }
+        
         return results
-
+    
     # ----------- Model Testing Methods -----------
 
     def run_models(self, target = None) -> dict:
@@ -428,7 +480,7 @@ class AutoPrep:
 
     # ----------- Feature Selection -----------
 
-    def select_features(self, method = 'rfe', target = None, k= 10, threshold = 0.9) -> pd.DataFrame:
+    def select_features(self, method = 'rfe', target = None, k= 2, threshold = 0.9) -> pd.DataFrame:
         """
         Perform automatic feature selection based on the specified method.
 
@@ -472,7 +524,7 @@ class AutoPrep:
         - The `threshold` parameter is only used for the 'correlation' method to filter features by their correlation with the target.
         """
         warnings.filterwarnings("ignore")
-        # Validación de formatos correctos
+
         if not isinstance(k, int):
             raise TypeError("k must be an integer value.")
         
@@ -498,7 +550,6 @@ class AutoPrep:
         if method == 'rfe':
             X = self.df.drop(columns=[target])
             y = self.df[target]
-            # Usar un modelo de regresión o clasificación dependiendo del target
             model = LinearRegression() if pd.api.types.is_numeric_dtype(y) else LogisticRegression()
             selector = RFE(model, n_features_to_select=k)
             selector = selector.fit(X, y)
@@ -508,7 +559,6 @@ class AutoPrep:
         elif method == 'importance':
             X = self.df.drop(columns=[target])
             y = self.df[target]
-            # Usar RandomForest para obtener la importancia de las características
             model = RandomForestClassifier() if not pd.api.types.is_numeric_dtype(y) else RandomForestRegressor()
             model.fit(X, y)
             importances = model.feature_importances_
@@ -537,47 +587,13 @@ class AutoPrep:
 
 
     # ----------- Full Analysis Method -----------
-
-    def run_full_analysis(self, target = None) -> dict:
+    
+    def run_full_analysis(self, target=None) -> dict:
         """
         Run a complete analysis pipeline, including missing value analysis, outlier detection, 
         basic statistics calculation, normality tests, and model fitting and evaluation (if a target is provided).
-
-        This function performs the following analyses:
-        - Missing value analysis
-        - Outlier detection and handling
-        - Calculation of basic statistics for numerical columns
-        - Normality tests (skewness and kurtosis)
-        If a target column is provided, the function will also fit and evaluate machine learning models to predict the target variable.
-
-        Parameters
-        ----------
-        target : str, optional
-            The name of the target column for modeling. If provided, the function will also fit and evaluate models on the data.
-
-        Returns
-        -------
-        dict
-            A dictionary containing the results of the different analyses:
-
-            - **'missing_analysis'**: Results of the missing value analysis
-            - **'outliers_analysis'**: Results of the outlier detection and handling
-            - **'basic_stats'**: Basic statistics for numerical columns
-            - **'normality_tests'**: Results of normality tests (skewness and kurtosis)
-            - **'model_accuracy'** (optional): Model evaluation results (if target is provided), containing accuracy for classification or MSE for regression models.
-            
-        Raises
-        ------
-        ValueError
-            If the target column is not specified when running the analysis.
-        TypeError
-            If the target column is not a string.
-
-        Notes
-        -----
-        - If no target column is specified, the function performs only the exploratory data analysis steps: missing value analysis, outlier detection, basic stats, and normality tests.
-        - If a target column is provided, the function will perform model training and evaluation (regression or classification) based on the target type.
         """
+
         warnings.filterwarnings("ignore")
 
         if target is None:
@@ -586,16 +602,50 @@ class AutoPrep:
         if not isinstance(target, str):
             raise TypeError("Target column must be a string value.")
         
+        results = {}
 
-        results = {
-            'missing_analysis': self.analyze_missing(),
-            'outliers_analysis': self.handle_outliers(),
-            'basic_stats': self.get_basic_stats(),
-            'normality_tests': self.normality_test(),
-            'select_features': self.select_features(target),
-            'feature_importance': self.simple_feature_importance(target)
-        }
+        missing_analysis = self.analyze_missing()
+        results['missing_analysis'] = missing_analysis
+
+        outliers_analysis = self.handle_outliers()
+        results['outliers_analysis'] = outliers_analysis
+
+        basic_stats = self.get_basic_stats()
+        results['basic_stats'] = basic_stats
+
+        normality_tests = self.normality_test()
+        results['normality_tests'] = normality_tests
+
+        selected_features = self.select_features(target=target, k=2)
+        results['select_features'] = selected_features
+
+        feature_importance = self.simple_feature_importance(target)
+        results['feature_importance'] = feature_importance
 
         if target:
-            results['model_accuracy'] = self.run_models(target)
+            model_accuracy = self.run_models(target)
+            results['model_accuracy'] = model_accuracy
+
+        print("\n=== MISSING VALUES ANALYSIS ===")
+        print(missing_analysis, "\n")
+
+        print("=== OUTLIERS ANALYSIS ===")
+        print(outliers_analysis, "\n")
+
+        print("=== BASIC STATS ===")
+        print(basic_stats, "\n")
+
+        print("=== NORMALITY TESTS ===")
+        print(normality_tests, "\n")
+
+        print("=== FEATURE SELECTION ===")
+        print(selected_features, "\n")
+
+        print("=== FEATURE IMPORTANCE ===")
+        print(feature_importance, "\n")
+
+        if target:
+            print("=== MODEL ACCURACY ===")
+            print(model_accuracy, "\n")
+
         return results
